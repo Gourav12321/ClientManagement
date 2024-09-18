@@ -31,7 +31,7 @@ function View({ setNewOpen, fetchClients, clientId, handleDelete }) {
         setDocuments(response.data.documents.map(doc => {
           const normalizedDoc = doc.replace(/^(uploads[\\/])/, ''); 
       
-          return `http://localhost:3000/uploads/${normalizedDoc}`; 
+          return `https://clientmanagement.onrender.com/uploads/${normalizedDoc}`; 
         }));
       } else {
         console.warn("Unexpected response format:", response.data);
