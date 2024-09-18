@@ -133,10 +133,40 @@ function View({ setNewOpen, fetchClients, clientId, handleDelete }) {
           <textarea className="w-full border-[2px] mb-3 p-2 text-[14px]" rows="3" name="updatedNotes" value={updatedNotes} onChange={(e) => setUpdatedNotes(e.target.value)} />
           <button className="bg-blue-800 text-white py-2 px-4 rounded w-full" onClick={handleSaveNote}>Save Note</button>
         </div>
-        <div className="flex flex-col md:flex-row gap-3">
-          <button className="text-blue-800 font-bold" onClick={() => setNewOpen2(true)}>Edit</button>
-          <button className="text-blue-800 font-bold" onClick={handleDeleteClient}>Delete</button>
-        </div>
+        <div className="flex gap-3">
+              <button
+                className="text-blue-800 font-bold"
+                onClick={() => setNewOpen2(true)} 
+              >
+                Edit
+              </button>
+              {newOpen2 && (
+                <div className="fixed inset-0 bg-gray-900 bg-opacity-30 flex justify-center items-center">
+                  <div className="bg-white p-8 rounded-lg shadow-lg w-[70%] h-[90%] relative">
+                    <button
+                      className="absolute right-2 -top-2 text-red-600 text-2xl font-bold py-2 px-4 rounded ml-4"
+                      onClick={() => setNewOpen2(false)}
+                    >
+                      x
+                    </button>
+                    <h2 className="text-xl font-bold mb-4 uppercase bg-blue-800 text-white p-4 rounded-t-xl text-center">
+                      Edit Job Sheet
+                    </h2>
+                    <Edit
+                      setNewOpen={setNewOpen2}
+                      fetchClients={fetchClients}
+                      clientId={clientId}
+                    />
+                  </div>
+                </div>
+              )}
+              <button
+                className="text-blue-800 font-bold"
+                onClick={handleDeleteClient}
+              >
+                Delete
+              </button>
+            </div>
         <div>
           <button onClick={() => setNewOpen(false)} className="text-blue-800 font-bold">Back</button>
         </div>
