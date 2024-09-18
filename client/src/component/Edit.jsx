@@ -21,7 +21,7 @@ function Edit({ setNewOpen, fetchClients, clientId }) {
     const fetchClientData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/clientById/${clientId}`
+          `/api/clientById/${clientId}`
         );
         const data = response.data.data;
         setNewClient(data);
@@ -65,7 +65,7 @@ function Edit({ setNewOpen, fetchClients, clientId }) {
   
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/client`,
+        `/api/client`,
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );

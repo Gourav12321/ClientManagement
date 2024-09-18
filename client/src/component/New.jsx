@@ -49,7 +49,7 @@ function New({ setNewOpen, fetchClients }) {
     });
 
     try {
-      await axios.post("http://localhost:3000/api/client", formData, {
+      await axios.post("/api/client", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -12,11 +12,11 @@ function View({ setNewOpen, fetchClients, clientId, handleDelete }) {
   const [documents, setDocuments] = useState([]);
 
   const handleDownloadPDF = () => {
-    window.open(`http://localhost:3000/api/generatePDF/${clientId}`, '_blank');
+    window.open(`/api/generatePDF/${clientId}`, '_blank');
   };
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/clientById/${clientId}`);
+      const response = await axios.get(`/api/clientById/${clientId}`);
       setData(response.data.data);
     } catch (error) {
       console.error("Error fetching client data:", error);
@@ -25,7 +25,7 @@ function View({ setNewOpen, fetchClients, clientId, handleDelete }) {
 
   const fetchDocuments = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/clientDocuments/${clientId}`);
+      const response = await axios.get(`/api/clientDocuments/${clientId}`);
       
       if (response.data && Array.isArray(response.data.documents)) {
         setDocuments(response.data.documents.map(doc => {
@@ -54,7 +54,7 @@ function View({ setNewOpen, fetchClients, clientId, handleDelete }) {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/updatedNotes", {
+      const response = await axios.post("/api/updatedNotes", {
         _id: data._id,
         updatedNotes,
       });
