@@ -7,7 +7,6 @@ const dotenv = require('dotenv')
 const app = express();
 dotenv.config();
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -22,9 +21,10 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(cors())
 app.use(express.json());
 
+
 // Initialize routes
 app.use('/api', router);
-
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Serve the index.html for any unknown routes (SPA)
 app.get('*', (req, res) => {

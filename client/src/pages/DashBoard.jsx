@@ -7,7 +7,7 @@ import Edit from "../component/Edit";
 
 function DashBoard() {
   const [clients, setClients] = useState([]);
-  const [filteredClients, setFilteredClients] = useState([]); 
+  const [filteredClients, setFilteredClients] = useState([]); // Add state to store filtered clients
   const [searchQuery, setSearchQuery] = useState("");
   const [newOpen, setNewOpen] = useState(false);
   const [newOpen1, setNewOpen1] = useState(false);
@@ -23,7 +23,7 @@ function DashBoard() {
     try {
       const response = await axios.get("http://localhost:3000/api/client");
       setClients(response.data.data);
-      setFilteredClients(response.data.data); 
+      setFilteredClients(response.data.data); // Set filtered clients to be the same as the full client list initially
     } catch (error) {
       console.log("Error fetching clients:", error);
     }
