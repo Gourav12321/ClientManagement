@@ -25,13 +25,13 @@ function View({ setNewOpen, fetchClients, clientId, handleDelete }) {
 
   const fetchDocuments = async () => {
     try {
-      const response = await axios.get(`/api/clientDocuments/${clientId}`);
+      const response = await axios.get(`https://clientmanagement.onrender.com/api/clientDocuments/${clientId}`);
       
       if (response.data && Array.isArray(response.data.documents)) {
         setDocuments(response.data.documents.map(doc => {
           const normalizedDoc = doc.replace(/^(uploads[\\/])/, ''); 
       
-          return `/uploads/${normalizedDoc}`; 
+          return `https://clientmanagement.onrender.com/uploads/${normalizedDoc}`; 
         }));
       } else {
         console.warn("Unexpected response format:", response.data);
@@ -81,177 +81,95 @@ function View({ setNewOpen, fetchClients, clientId, handleDelete }) {
 
   return (
     <div className="overflow-y-auto h-[80%]">
-      <div id="pdf-content">
-        {data && (
-          <>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Client Name:</p>
-              <p className="p-2 w-[60%] text-start">{data.clientName}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Contact Info:</p>
-              <p className="p-2 w-[60%] text-start">{data.contactInfo}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Received Date:</p>
-              <p className="p-2 w-[60%] text-start">{data.receivedDate}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Inventory Received:</p>
-              <p className="p-2 w-[60%] text-start">{data.inventoryRecieved}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Inventory Image/Document/Video:</p>
-              <button
-                className="text-blue-800 font-bold pl-2"
-                onClick={() => {
-                  fetchDocuments(); 
-                  setViewUploads(true); 
-                }}
-              >
-                View File
-              </button>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Reported Issue:</p>
-              <p className="p-2 w-[60%] text-start">{data.reportedIssue}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Client Notes:</p>
-              <p className="p-2 w-[60%] text-start">{data.clientNotes}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Assigned Technician:</p>
-              <p className="p-2 w-[60%] text-start">{data.assignedTechnician}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Estimate Amount:</p>
-              <p className="p-2 w-[60%] text-start">{data.estimateAmount}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Deadline:</p>
-              <p className="p-2 w-[60%] text-start">{data.Deadline}</p>
-            </div>
-            <div className="flex w-full border">
-              <p className="font-bold w-[40%] text-start bg-blue-800 text-white p-2">Status:</p>
-              <p className="p-2 w-[60%] text-start">{data.status}</p>
-            </div>
-            <div className="py-5">
-              <p className="text-start font-bold text-[15px]">Add or Update Note:</p>
-              <textarea
-                className="w-full border-[2px] mb-3 p-2 text-[14px]"
-                rows="3"
-                name="updatedNotes"
-                value={updatedNotes}
-                onChange={(e) => setUpdatedNotes(e.target.value)}
-              />
-              <button
-                className="bg-blue-800 text-white py-2 px-4 rounded w-full"
-                onClick={handleSaveNote}
-              >
-                Save Note
-              </button>
-            </div>
-            <div className="flex gap-3">
-              <button
-                className="text-blue-800 font-bold"
-                onClick={() => setNewOpen2(true)} 
-              >
-                Edit
-              </button>
-              {newOpen2 && (
-                <div className="fixed inset-0 bg-gray-900 bg-opacity-30 flex justify-center items-center">
-                  <div className="bg-white p-8 rounded-lg shadow-lg w-[70%] h-[90%] relative">
-                    <button
-                      className="absolute right-2 -top-2 text-red-600 text-2xl font-bold py-2 px-4 rounded ml-4"
-                      onClick={() => setNewOpen2(false)}
-                    >
-                      x
-                    </button>
-                    <h2 className="text-xl font-bold mb-4 uppercase bg-blue-800 text-white p-4 rounded-t-xl text-center">
-                      Edit Job Sheet
-                    </h2>
-                    <Edit
-                      setNewOpen={setNewOpen2}
-                      fetchClients={fetchClients}
-                      clientId={clientId}
-                    />
-                  </div>
+  <div id="pdf-content">
+    {data && (
+      <>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Client Name:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.clientName}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Contact Info:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.contactInfo}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Received Date:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.receivedDate}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Inventory Received:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.inventoryRecieved}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Inventory Image/Document/Video:</p>
+          <button className="text-blue-800 font-bold pl-2" onClick={() => { fetchDocuments(); setViewUploads(true); }}>View File</button>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Reported Issue:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.reportedIssue}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Client Notes:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.clientNotes}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Assigned Technician:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.assignedTechnician}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Estimate Amount:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.estimateAmount}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Deadline:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.Deadline}</p>
+        </div>
+        <div className="flex flex-col md:flex-row w-full border">
+          <p className="font-bold w-full md:w-[40%] text-start bg-blue-800 text-white p-2">Status:</p>
+          <p className="p-2 w-full md:w-[60%] text-start">{data.status}</p>
+        </div>
+        <div className="py-5">
+          <p className="text-start font-bold text-[15px]">Add or Update Note:</p>
+          <textarea className="w-full border-[2px] mb-3 p-2 text-[14px]" rows="3" name="updatedNotes" value={updatedNotes} onChange={(e) => setUpdatedNotes(e.target.value)} />
+          <button className="bg-blue-800 text-white py-2 px-4 rounded w-full" onClick={handleSaveNote}>Save Note</button>
+        </div>
+        <div className="flex flex-col md:flex-row gap-3">
+          <button className="text-blue-800 font-bold" onClick={() => setNewOpen2(true)}>Edit</button>
+          <button className="text-blue-800 font-bold" onClick={handleDeleteClient}>Delete</button>
+        </div>
+        <div>
+          <button onClick={() => setNewOpen(false)} className="text-blue-800 font-bold">Back</button>
+        </div>
+        <div className="py-5"></div>
+        <button className="bg-slate-200 text-black py-2 px-4 rounded" onClick={handleDownloadPDF}>Save as PDF</button>
+      </>
+    )}
+    {/* View Uploads Modal */}
+    {viewUploads && (
+      <div className="fixed inset-0 bg-gray-900 bg-opacity-30 flex justify-center items-center">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] md:w-[70%] h-[90%] relative">
+          <button className="absolute right-2 -top-2 text-red-600 text-2xl font-bold py-2 px-4 rounded ml-4" onClick={() => setViewUploads(false)}>x</button>
+          <h2 className="text-xl font-bold mb-4 uppercase bg-blue-800 text-white p-4 rounded-t-xl text-center">Uploaded Documents</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 overflow-auto h-[70%]">
+            {documents && documents.length > 0 ? (
+              documents.map((doc, index) => (
+                <div key={index} className="flex flex-col items-center">
+                  <a href={doc} target="_blank" rel="noopener noreferrer" className="font-bold text-blue-700 text-xl">Document {index + 1}</a>
                 </div>
-              )}
-              <button
-                className="text-blue-800 font-bold"
-                onClick={handleDeleteClient}
-              >
-                Delete
-              </button>
-            </div>
-            <div>
-              <button
-                onClick={() => setNewOpen(false)}
-                className="text-blue-800 font-bold"
-              >
-                Back
-              </button>
-            </div>
-            <div className="py-5">
-              
-            </div>
-            <button
-        className="bg-slate-200 text-black py-2 px-4 rounded"
-        onClick={handleDownloadPDF}
-      >
-        Save as PDF
-      </button>
-          </>
-        )}
-
-        {/* View Uploads Modal */}
-        {viewUploads && (
-          <div className="fixed inset-0 bg-gray-900 bg-opacity-30 flex justify-center items-center">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-[70%] h-[90%] relative">
-              <button
-                className="absolute right-2 -top-2 text-red-600 text-2xl font-bold py-2 px-4 rounded ml-4"
-                onClick={() => setViewUploads(false)}
-              >
-                x
-              </button>
-              <h2 className="text-xl font-bold mb-4 uppercase bg-blue-800 text-white p-4 rounded-t-xl text-center">
-                Uploaded Documents
-              </h2>
-
-              <div className="grid grid-cols-4 overflow-auto h-[70%]"> 
-                {documents && documents.length > 0 ? (
-                  documents.map((doc, index) => (
-                    <div key={index} className="flex flex-col items-center">
-                      <a
-                        href={doc} 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-bold text-blue-700 text-xl"
-                      >
-                        Document {index+1}
-                      </a>
-                    </div>
-                  ))
-                ) : (
-                  <p className="col-span-4 text-center">No documents available.</p>
-                )}
-              </div>
-
-              <div className="flex justify-end mt-4">
-                <button
-                  className="text-white bg-blue-800 font-bold py-2 px-4 rounded"
-                  onClick={() => setViewUploads(false)}
-                >
-                  Back
-                </button>
-              </div>
-            </div>
+              ))
+            ) : (
+              <p className="col-span-4 text-center">No documents available.</p>
+            )}
           </div>
-        )}
+          <div className="flex justify-end mt-4">
+            <button className="text-white bg-blue-800 font-bold py-2 px-4 rounded" onClick={() => setViewUploads(false)}>Back</button>
+          </div>
+        </div>
       </div>
-    </div>
+    )}
+  </div>
+</div>
+
   );
 }
 

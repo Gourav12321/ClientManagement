@@ -21,7 +21,7 @@ function DashBoard() {
   // Fetch all clients from the backend
   const fetchClients = async () => {
     try {
-      const response = await axios.get("/api/client");
+      const response = await axios.get("http://localhost:3000/api/client");
       setClients(response.data.data);
       setFilteredClients(response.data.data); // Set filtered clients to be the same as the full client list initially
     } catch (error) {
@@ -45,7 +45,7 @@ function DashBoard() {
 
   const handleDelete = async (_id) => {
     try {
-      await axios.delete("/api/client", {
+      await axios.delete("http://localhost:3000/api/client", {
         data: { _id },
       });
       fetchClients(); 

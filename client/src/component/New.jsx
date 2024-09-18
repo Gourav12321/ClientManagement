@@ -63,21 +63,11 @@ function New({ setNewOpen, fetchClients }) {
   };
 
   return (
-    <div className="overflow-y-auto h-[80%]">
-      <form onSubmit={handleNewClientSubmit} encType="multipart/form-data">
-        {/* <label htmlFor="clientId" className="font-bold hidden">Client ID:</label>
+    <div className="overflow-y-auto h-[80%] p-4 sm:p-6 md:p-8">
+      <form onSubmit={handleNewClientSubmit} encType="multipart/form-data" className="space-y-4">
+        <label htmlFor="clientName" className="block font-bold">Client Name:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
-          type="text"
-          name="clientId"
-          value={newClient.clientId}
-          onChange={handleInputChange}
-
-        /> */}
-
-        <label htmlFor="clientName" className="font-bold">Client Name:</label>
-        <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="text"
           name="clientName"
           value={newClient.clientName}
@@ -85,10 +75,10 @@ function New({ setNewOpen, fetchClients }) {
           required
         />
 
-        <label htmlFor="contactInfo" className="font-bold">Contact Info:</label>
+        <label htmlFor="contactInfo" className="block font-bold">Contact Info:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
-          type="text" 
+          className="border p-2 rounded w-full"
+          type="text"
           name="contactInfo"
           value={newClient.contactInfo}
           onChange={(e) => {
@@ -97,14 +87,14 @@ function New({ setNewOpen, fetchClients }) {
               handleInputChange(e);
             }
           }}
-          maxLength={10} 
+          maxLength={10}
           placeholder="Enter 10 digit contact number"
           required
         />
 
-        <label htmlFor="receivedDate" className="font-bold">Received Date:</label>
+        <label htmlFor="receivedDate" className="block font-bold">Received Date:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="date"
           name="receivedDate"
           value={newClient.receivedDate}
@@ -112,46 +102,46 @@ function New({ setNewOpen, fetchClients }) {
           required
         />
 
-        <label htmlFor="inventoryRecieved" className="font-bold">Inventory Received:</label>
+        <label htmlFor="inventoryRecieved" className="block font-bold">Inventory Received:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="text"
           name="inventoryRecieved"
           value={newClient.inventoryRecieved}
           onChange={handleInputChange}
           required
         />
-        <label htmlFor="file" className="font-bold">Upload Inventory Image/Document/Video:</label>
+
+        <label htmlFor="file" className="block font-bold">Upload Inventory Image/Document/Video:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="file"
           name="file"
           multiple
           onChange={handleFileChange}
           required
         />
-        <label htmlFor="reportedIssue" className="font-bold">Reported Issue:</label>
+
+        <label htmlFor="reportedIssue" className="block font-bold">Reported Issue:</label>
         <textarea
-          className="border p-2 rounded w-full mb-4"
-          type="text"
+          className="border p-2 rounded w-full"
           name="reportedIssue"
           value={newClient.reportedIssue}
           onChange={handleInputChange}
           required
         />
 
-        <label htmlFor="clientNotes" className="font-bold">Client Notes:</label>
+        <label htmlFor="clientNotes" className="block font-bold">Client Notes:</label>
         <textarea
-          className="border p-2 rounded w-full mb-4"
-          type="text"
+          className="border p-2 rounded w-full"
           name="clientNotes"
           value={newClient.clientNotes}
           onChange={handleInputChange}
         />
 
-        <label htmlFor="assignedTechnician" className="font-bold">Assigned Technician:</label>
+        <label htmlFor="assignedTechnician" className="block font-bold">Assigned Technician:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="text"
           name="assignedTechnician"
           value={newClient.assignedTechnician}
@@ -159,9 +149,9 @@ function New({ setNewOpen, fetchClients }) {
           required
         />
 
-        <label htmlFor="estimateAmount" className="font-bold">Estimate Amount:</label>
+        <label htmlFor="estimateAmount" className="block font-bold">Estimate Amount:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="number"
           name="estimateAmount"
           value={newClient.estimateAmount}
@@ -169,9 +159,9 @@ function New({ setNewOpen, fetchClients }) {
           required
         />
 
-        <label htmlFor="Deadline" className="font-bold">Deadline:</label>
+        <label htmlFor="Deadline" className="block font-bold">Deadline:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="date"
           name="Deadline"
           value={newClient.Deadline}
@@ -179,11 +169,9 @@ function New({ setNewOpen, fetchClients }) {
           required
         />
 
-        <label htmlFor="status" className="font-bold">
-          Status:
-        </label>
+        <label htmlFor="status" className="block font-bold">Status:</label>
         <select
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           name="status"
           value={newClient.status}
           onChange={handleInputChange}
@@ -195,11 +183,9 @@ function New({ setNewOpen, fetchClients }) {
           <option value="completed">Completed</option>
         </select>
 
-        
-
         <button
           type="submit"
-          className="bg-blue-800 text-white py-2 px-5 font-semibold rounded-md"
+          className="bg-blue-800 text-white py-2 px-4 font-semibold rounded-md w-full sm:w-auto"
         >
           Submit
         </button>

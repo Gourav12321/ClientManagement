@@ -7,22 +7,20 @@ function Edit({ setNewOpen, fetchClients, clientId }) {
     clientName: "",
     contactInfo: "",
     receivedDate: "",
-    inventoryReceived: "",
+    inventoryRecieved: "",
     file: [],
     reportedIssue: "",
     clientNotes: "",
     assignedTechnician: "",
     estimateAmount: "",
-    deadline: "",
+    Deadline: "",
     status: "",
   });
 
   useEffect(() => {
     const fetchClientData = async () => {
       try {
-        const response = await axios.get(
-          `/api/clientById/${clientId}`
-        );
+        const response = await axios.get(`/api/clientById/${clientId}`);
         const data = response.data.data;
         setNewClient(data);
       } catch (error) {
@@ -44,7 +42,7 @@ function Edit({ setNewOpen, fetchClients, clientId }) {
   const handleFileChange = (e) => {
     setNewClient((prevState) => ({
       ...prevState,
-      file: e.target.files // Multiple files handling
+      file: e.target.files
     }));
   };
   
@@ -78,65 +76,47 @@ function Edit({ setNewOpen, fetchClients, clientId }) {
       console.log("Error updating client:", error);
     }
   };
-  
-  
-
 
   return (
-    <div className="overflow-y-auto h-[80%]">
-      <form onSubmit={handleNewClientSubmit}>
-        {/* <input
-          className="border p-2 rounded w-full mb-4 hidden"
-          name="clientId"
-          value={newClient._id}
-          onChange={handleNewClientChange}
-          required
-          disabled // Client ID should be disabled for editing
-        /> */}
+    <div className="overflow-y-auto h-[80%] p-4 sm:p-6 md:p-8">
+      <form onSubmit={handleNewClientSubmit} className="space-y-4">
         <input
-          className="border p-2 rounded w-full mb-4 hidden"
+          className="border p-2 rounded w-full hidden"
           name="_id"
           value={newClient._id}
           onChange={handleNewClientChange}
-          disabled // Client ID should be disabled for editing
+          disabled
         />
 
-        <label htmlFor="clientName" className="flex font-bold">
-          Client Name:
-        </label>
+        <label htmlFor="clientName" className="block font-bold text-start">Client Name:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           name="clientName"
           value={newClient.clientName}
           onChange={handleNewClientChange}
           required
         />
 
-        <label htmlFor="contactInfo" className="flex font-bold">
-          Contact Info:
-        </label>
+        <label htmlFor="contactInfo" className="block font-bold text-start">Contact Info:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="text"
           name="contactInfo"
           value={newClient.contactInfo}
           onChange={(e) => {
             const value = e.target.value;
-            // Allow only numbers and limit the length to 10 digits
             if (/^\d{0,10}$/.test(value)) {
-              handleInputChange(e);
+              handleNewClientChange(e);
             }
           }}
-          maxLength={10} 
+          maxLength={10}
           placeholder="Enter 10 digit contact number"
           required
         />
 
-        <label htmlFor="receivedDate" className="flex font-bold">
-          Received Date:
-        </label>
+        <label htmlFor="receivedDate" className="block font-bold text-start">Received Date:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="date"
           name="receivedDate"
           value={newClient.receivedDate}
@@ -144,78 +124,55 @@ function Edit({ setNewOpen, fetchClients, clientId }) {
           required
         />
 
-        <label htmlFor="inventoryRecieved" className="flex font-bold">
-          Inventory Received:
-        </label>
+        <label htmlFor="inventoryReceived" className="block font-bold text-start">Inventory Received:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
+          type="text"
           name="inventoryRecieved"
           value={newClient.inventoryRecieved}
           onChange={handleNewClientChange}
           required
         />
 
-<label htmlFor="file" className="flex font-bold">
-          Upload Inventory Image/Document/Video:
-        </label>
+        <label htmlFor="file" className="block font-bold text-start">Upload Inventory Image/Document/Video:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="file"
           name="file"
-          onChange={handleFileChange}
           multiple
+          onChange={handleFileChange}
         />
 
-        <label htmlFor="reportedIssue" className="flex font-bold">
-          Reported Issues:
-        </label>
+        <label htmlFor="reportedIssue" className="block font-bold text-start">Reported Issue:</label>
         <textarea
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           name="reportedIssue"
           value={newClient.reportedIssue}
           onChange={handleNewClientChange}
           required
         />
 
-        <label htmlFor="clientNotes" className="flex font-bold">
-          Client Notes:
-        </label>
+        <label htmlFor="clientNotes" className="block font-bold text-start">Client Notes:</label>
         <textarea
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           name="clientNotes"
           value={newClient.clientNotes}
           onChange={handleNewClientChange}
-          required
         />
 
-        <label htmlFor="assignedTechnician" className="flex font-bold">
-          Assigned Technician:
-        </label>
+        <label htmlFor="assignedTechnician" className="block font-bold text-start">Assigned Technician:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
+          type="text"
           name="assignedTechnician"
           value={newClient.assignedTechnician}
           onChange={handleNewClientChange}
           required
         />
 
-        <label htmlFor="Deadline" className="flex font-bold">
-          Deadline:
-        </label>
+        <label htmlFor="estimateAmount" className="block font-bold text-start">Estimate Amount:</label>
         <input
-          className="border p-2 rounded w-full mb-4"
-          type="date"
-          name="Deadline"
-          value={newClient.Deadline}
-          onChange={handleNewClientChange}
-          required
-        />
-
-        <label htmlFor="estimateAmount" className="flex font-bold">
-          Estimated Amount:
-        </label>
-        <input
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           type="number"
           name="estimateAmount"
           value={newClient.estimateAmount}
@@ -223,11 +180,19 @@ function Edit({ setNewOpen, fetchClients, clientId }) {
           required
         />
 
-        <label htmlFor="status" className="flex font-bold">
-          Status:
-        </label>
+        <label htmlFor="deadline" className="block font-bold text-start">Deadline:</label>
+        <input
+          className="border p-2 rounded w-full"
+          type="date"
+          name="Deadline"
+          value={newClient.Deadline}
+          onChange={handleNewClientChange}
+          required
+        />
+
+        <label htmlFor="status" className="block font-bold text-start">Status:</label>
         <select
-          className="border p-2 rounded w-full mb-4"
+          className="border p-2 rounded w-full"
           name="status"
           value={newClient.status}
           onChange={handleNewClientChange}
@@ -240,17 +205,10 @@ function Edit({ setNewOpen, fetchClients, clientId }) {
         </select>
 
         <button
-          className="bg-blue-800 font-bold text-white py-2 px-4 rounded w-full"
           type="submit"
-          onClick={() => fetchClients()}
+          className="bg-blue-800 text-white py-2 px-4 font-semibold rounded-md w-full sm:w-auto"
         >
-          Save Changes
-        </button>
-        <button
-          className="text-blue-800 font-bold py-2 px-4 rounded w-full my-3"
-          onClick={() => setNewOpen(false)}
-        >
-          Cancel
+          Submit
         </button>
       </form>
     </div>
